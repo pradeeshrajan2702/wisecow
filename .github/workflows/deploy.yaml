@@ -9,6 +9,8 @@ env:
   ECR_REPOSITORY: wisecow
   EKS_CLUSTER_NAME: bession-dev
   AWS_REGION: ap-south-1
+  AWS_SECRET_ACCESS_KEY: v5SLOpghDWmbhUM+ZJ+4x7lsk0Xd5iGPoxs5GQwe
+  AWS_ACCESS_KEY_ID: AKIAXYKJXQVZSGQY3SY6
 
 jobs:
   
@@ -29,8 +31,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: $AWS_ACCESS_KEY_ID
+        aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
         aws-region: ${{env.AWS_REGION}}
 
     - name: Login to Amazon ECR
@@ -53,6 +55,6 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" manifests/hello-app-deployment.yaml && \
-        kubectl apply -f 
-        kubectl apply -f 
+        sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" deployment.yaml && \
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
