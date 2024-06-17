@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 
 env:
-  ECR_REPOSITORY: wisecow
+  ECR_REPOSITORY: 533267449203.dkr.ecr.ap-south-1.amazonaws.com
   EKS_CLUSTER_NAME: bession-dev
   AWS_REGION: ap-south-1
   AWS_SECRET_ACCESS_KEY: "v5SLOpghDWmbhUM+ZJ+4x7lsk0Xd5iGPoxs5GQwe"
